@@ -72,14 +72,15 @@ public:
     {
     }
 
+    template <typename... Args>
+      constexpr NamedType(in_place_t tag, Args&&... args) noexcept(std::is_nothrow_constructible<T>::value): value_(std::forward<Args>(args)...)
+    {
+    }
+
     // get
     FLUENT_NODISCARD constexpr T& get() noexcept
     {
         return value_;
-    }
-    template <typename... Args>
-      constexpr NamedType(in_place_t tag, Args&&... args) noexcept(std::is_nothrow_constructible<T>::value): value_(std::forward<Args>(args)...)
-    {
     }
 
     FLUENT_NODISCARD constexpr std::remove_reference_t<T> const& get() const noexcept
